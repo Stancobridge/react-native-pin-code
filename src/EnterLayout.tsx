@@ -26,7 +26,7 @@ const EnterLayout = ({
   onEnter: (newPin: string) => void;
   onMaxAttempt: () => void;
   onReset: () => void;
-  onEnterValidation?: () => Promise<boolean>;
+  onEnterValidation?: (enteredPin: string) => Promise<boolean>;
 }) => {
   const [curPin, setCurPin] = useState("");
   const [disabled, setDisabled] = useState(false);
@@ -52,7 +52,7 @@ const EnterLayout = ({
     let isPinValid: boolean = false;
 
     if (onEnterValidation) {
-      isPinValid = await onEnterValidation();
+      isPinValid = await onEnterValidation(enteredPin);
       if (isPinValid) {
         resetPinSetupToDefault(enteredPin);
         return;
